@@ -1,10 +1,10 @@
-package com.github.skyrrt.tickerbooker;
+package com.github.skyrrt.ticketbooker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TickerbookerApplicationTests {
+class TicketbookerApplicationTests {
 
 	@Test
 	void contextLoads() {

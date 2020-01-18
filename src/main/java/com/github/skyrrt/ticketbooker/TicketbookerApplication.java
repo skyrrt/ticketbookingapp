@@ -1,13 +1,13 @@
-package com.github.skyrrt.tickerbooker;
+package com.github.skyrrt.ticketbooker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TickerbookerApplication {
+public class TicketbookerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TickerbookerApplication.class, args);
+		SpringApplication.run(TicketbookerApplication.class, args);
 	}
 
 }

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.skyrrt</groupId>
-	<artifactId>tickerbooker</artifactId>
+	<artifactId>ticketbooker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tickerbooker</name>
+	<name>ticketbooker</name>
 	<description>ticket booking app</description>
 
 	<properties>
