@@ -8,4 +8,3 @@ public class ScreeningDto {
     private String roomName;
     private List<SeatDto> availableSeats;
 }
-(^[A-Z][a-z]{2,}$)|(^[A-Z][a-z]{2,}-[A-Z][a-z]{2,}$)
