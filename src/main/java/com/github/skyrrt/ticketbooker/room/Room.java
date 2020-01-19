@@ -1,4 +1,4 @@
-package com.github.skyrrt.ticketbooker.movie.domain;
+package com.github.skyrrt.ticketbooker.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,14 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class Movie {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String movieName;
-    private String directorsName;
+    private String roomName;
+    private int rowQuantity;
+    private int seatsInRow;
 }

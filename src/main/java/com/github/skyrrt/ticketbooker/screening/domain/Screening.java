@@ -1,7 +1,7 @@
 package com.github.skyrrt.ticketbooker.screening.domain;
 
-import com.github.skyrrt.ticketbooker.movie.domain.Movie;
-import com.github.skyrrt.ticketbooker.screening.room.Room;
+import com.github.skyrrt.ticketbooker.movie.Movie;
+import com.github.skyrrt.ticketbooker.room.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-class Screening {
+public class Screening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
