@@ -22,4 +22,7 @@ interface ScreeningRepository extends JpaRepository<Screening, Long> {
 
     @Query("SELECT s.screeningDate FROM Screening s where s.id = :id")
     ZonedDateTime getScreeningTime(@Param("id") long id);
+
+    @Query("SELECT s.room.seatsInRow FROM Screening s where s.id = :id")
+    int getRowSize(@Param("id") long id);
 }

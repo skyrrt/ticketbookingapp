@@ -1,5 +1,7 @@
 package com.github.skyrrt.ticketbooker.ticket.domain;
 
+import com.github.skyrrt.ticketbooker.booking.domain.Booking;
+import com.github.skyrrt.ticketbooker.booking.domain.dto.CreateBookingDto;
 import com.github.skyrrt.ticketbooker.screening.domain.Screening;
 import com.github.skyrrt.ticketbooker.screening.domain.dto.SeatDto;
 import lombok.AllArgsConstructor;

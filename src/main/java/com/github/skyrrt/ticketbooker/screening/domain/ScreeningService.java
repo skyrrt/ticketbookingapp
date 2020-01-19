@@ -60,13 +60,22 @@ public class ScreeningService {
         return screeningRepository.getScreeningTime(screeningId);
     }
 
+    public int getRowSize(long screeningId) {
+        return screeningRepository.getRowSize(screeningId);
+    }
+
+    public Screening getScreening(long screeningId) {
+        return screeningRepository.findById(screeningId).orElseThrow(() -> new NoSuchScreeningExceptions("There is no such screening with given id"));
+    }
+
     private List<SeatDto> getAllRoomSeats(int rows, int places) {
         List<Integer> rowNumbers = IntStream.range(0,rows).boxed().collect(Collectors.toList());
         List<Integer> placeNumbers = IntStream.range(0,places).boxed().collect(Collectors.toList());
 
         return rowNumbers.stream()
-                .flatMap(row -> placeNumbers.stream()
-                                            .map(place -> createSeat(row, place))
+                .flatMap(row -> placeNumbers
+                        .stream()
+                        .map(place -> createSeat(row, place))
                 ).collect(Collectors.toList());
     }
 

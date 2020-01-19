@@ -1,13 +1,19 @@
 package com.github.skyrrt.ticketbooker.ticket.domain;
 
 import com.github.skyrrt.ticketbooker.booking.domain.Booking;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

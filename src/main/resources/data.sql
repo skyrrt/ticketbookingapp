@@ -20,5 +20,5 @@ insert into booking (screening_id) values
 (1);
 
 insert into ticket (row_num, seat, price, booking_id) values
-(1,1,10,1),
+(0,0,10,1),
 (3,3,10,1);
