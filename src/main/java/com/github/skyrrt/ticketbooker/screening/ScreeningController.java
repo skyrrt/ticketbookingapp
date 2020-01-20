@@ -26,6 +26,7 @@ class ScreeningController {
 
     @GetMapping("/screenings")
     ResponseEntity<List<MovieScreeningDto>> getMovieScreenings(@RequestParam String from, @RequestParam String to) {
+        log.info("Get screenings with from: {} to: {}", from, to);
         try {
             List<MovieScreeningDto> movies = screeningService.getMovieScreeningsInGivenInterval(from, to);
             if(movies.isEmpty()) {
@@ -39,6 +40,7 @@ class ScreeningController {
 
     @GetMapping("/screenings/{screeningId}")
     ResponseEntity<ScreeningDto> getScreeningDetails(@PathVariable long screeningId) {
+        log.info("Get screening details. ScreeningId: {}", screeningId);
         try {
             return ResponseEntity.ok(screeningService.getScreeningDetails(screeningId));
         } catch (NoSuchScreeningExceptions ex) {

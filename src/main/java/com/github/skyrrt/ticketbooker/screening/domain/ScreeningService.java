@@ -1,6 +1,5 @@
 package com.github.skyrrt.ticketbooker.screening.domain;
 
-import com.github.skyrrt.ticketbooker.booking.domain.BookingService;
 import com.github.skyrrt.ticketbooker.movie.Movie;
 import com.github.skyrrt.ticketbooker.screening.domain.dto.MovieScreeningDto;
 import com.github.skyrrt.ticketbooker.screening.domain.dto.ScreeningDto;

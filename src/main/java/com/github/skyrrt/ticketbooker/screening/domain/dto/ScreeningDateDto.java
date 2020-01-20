@@ -1,7 +1,6 @@
 package com.github.skyrrt.ticketbooker.screening.domain.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Generated;
 import lombok.Getter;
 
 import java.time.ZonedDateTime;

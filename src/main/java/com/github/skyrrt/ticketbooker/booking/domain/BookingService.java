@@ -7,6 +7,7 @@ import com.github.skyrrt.ticketbooker.screening.domain.ScreeningService;
 import com.github.skyrrt.ticketbooker.ticket.domain.Ticket;
 import com.github.skyrrt.ticketbooker.ticket.domain.TicketRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BookingService {
     private TicketRepository ticketRepository;
     private BookingValidator bookingValidator;
@@ -25,16 +27,19 @@ public class BookingService {
 
     @Transactional
     public BookingResponseDto bookSeats(CreateBookingDto createBookingDto) {
+        log.debug("Started booking for screening {}", createBookingDto.getScreeningId());
         bookingValidator.validate(createBookingDto);
         Booking booking = Booking.builder()
                 .screening(screeningService.getScreening(createBookingDto.getScreeningId()))
                 .build();
         booking = bookingRepository.save(booking);
         saveReservedTickets(createBookingDto, booking);
+        log.debug("Booking attempt succesful for screening {}", createBookingDto.getScreeningId());
         return createBookingResponse(createBookingDto, booking.getScreening());
     }
 
-    public void saveReservedTickets(CreateBookingDto createBookingDto, Booking booking) {
+    private void saveReservedTickets(CreateBookingDto createBookingDto, Booking booking) {
+        log.debug("Started saving tickets for screening {}", createBookingDto.getScreeningId());
         List<Ticket> tickets = createBookingDto.getTicketDtos().stream()
                 .map(ticketDto -> Ticket.builder()
                         .booking(booking)
@@ -44,6 +49,7 @@ public class BookingService {
                         .build()
                 ).collect(Collectors.toList());
         ticketRepository.saveAll(tickets);
+        log.debug("Saving tickets ended for screening {}", createBookingDto.getScreeningId());
     }
 
     private BookingResponseDto createBookingResponse(CreateBookingDto createBookingDto, Screening screening) {

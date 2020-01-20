@@ -3,10 +3,10 @@ package com.github.skyrrt.ticketbooker.booking.domain;
 import com.github.skyrrt.ticketbooker.booking.domain.dto.CreateBookingDto;
 import com.github.skyrrt.ticketbooker.booking.domain.exceptions.TooLateToBookException;
 import com.github.skyrrt.ticketbooker.booking.domain.exceptions.UnallowedSeatBookingException;
-import com.github.skyrrt.ticketbooker.screening.domain.Screening;
 import com.github.skyrrt.ticketbooker.screening.domain.ScreeningService;
 import com.github.skyrrt.ticketbooker.screening.domain.dto.SeatDto;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneId;
@@ -16,17 +16,21 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 class BookingValidator {
     private ScreeningService screeningService;
 
     public boolean validate(CreateBookingDto createBookingDto) {
+        log.debug("Started validating booking for screening {}", createBookingDto.getScreeningId());
         return validateIfUserIsAllowedToBook(createBookingDto.getScreeningId()) && validateSeats(createBookingDto);
     }
 
     private boolean validateIfUserIsAllowedToBook(long screeningId) {
+        log.debug("Check if it is allowed to book seats for screening {}", screeningId);
         ZonedDateTime screeningDate = screeningService.getScreeningDate(screeningId);
         ZonedDateTime bookingTime = ZonedDateTime.now(ZoneId.systemDefault());
         if(!screeningDate.minusMinutes(15).isAfter(bookingTime)) {
+            log.error("Booking is unallowed. screeningTime: {} booking time: {}", screeningDate, bookingTime);
             throw new TooLateToBookException("It's too late to book seats");
         }
         return true;
@@ -38,6 +42,7 @@ class BookingValidator {
         bookingSeats.forEach(seatDto -> {
             boolean isSeatValid = validateSeat(seatDto, availableSeats, createBookingDto.getScreeningId());
             if(!isSeatValid) {
+                log.error("Seat booking with row: {} place: {} is invalid", seatDto.getRow(), seatDto.getSeat());
                 throw new UnallowedSeatBookingException("Requested booking not allowed");
             }
         });
@@ -53,6 +58,7 @@ class BookingValidator {
     }
 
     private boolean validateSeat(SeatDto seatDto, List<SeatDto> availableSeats, long screeningId) {
+        log.debug("Validation of seat row: {} place: {} for screening: {}", seatDto.getRow(), seatDto.getSeat(), screeningId);
         int rowSize = screeningService.getRowSize(screeningId);
         if(isLeftMargin(seatDto)) {
             return validateRightSide(seatDto, availableSeats);

@@ -1,6 +1,5 @@
 package com.github.skyrrt.ticketbooker.screening.domain.dto;
 
-import com.github.skyrrt.ticketbooker.screening.domain.dto.ScreeningDateDto;
 import lombok.Builder;
 import lombok.Data;
 

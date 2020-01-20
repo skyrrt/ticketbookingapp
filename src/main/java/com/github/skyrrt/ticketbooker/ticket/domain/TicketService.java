@@ -1,7 +1,5 @@
 package com.github.skyrrt.ticketbooker.ticket.domain;
 
-import com.github.skyrrt.ticketbooker.booking.domain.Booking;
-import com.github.skyrrt.ticketbooker.booking.domain.dto.CreateBookingDto;
 import com.github.skyrrt.ticketbooker.screening.domain.Screening;
 import com.github.skyrrt.ticketbooker.screening.domain.dto.SeatDto;
 import lombok.AllArgsConstructor;
@@ -17,7 +15,6 @@ public class TicketService {
 
     public List<SeatDto> getBookedSeats(Screening screening) {
         List<Ticket> tickets = ticketRepository.findAllByScreening(screening);
-
         return tickets.stream()
                 .map(ticket -> {
                     return SeatDto.builder().seat(ticket.getSeat()).row(ticket.getRowNum()).build();

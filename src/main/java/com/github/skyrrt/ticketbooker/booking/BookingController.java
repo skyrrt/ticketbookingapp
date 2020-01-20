@@ -27,12 +27,15 @@ class BookingController {
             consumes = "application/json;charset=UTF-8",
             produces = "application/json;charset=UTF-8")
     ResponseEntity<BookingResponseDto> bookSeats(@RequestBody @Valid CreateBookingDto createBookingDto) {
+        log.info("Attempt to create booking for screening: {}", createBookingDto.getScreeningId());
         try {
             return ResponseEntity.ok(bookingService.bookSeats(createBookingDto));
         } catch (NoSuchScreeningExceptions ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Screening with given id doesn't exist", ex);
-        } catch (TooLateToBookException | UnallowedSeatBookingException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Validation problems", ex);
+        } catch (TooLateToBookException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "You can book seats at least 15 minutes before screening", ex);
+        } catch (UnallowedSeatBookingException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "You left empty seat", ex);
         }
     }
 }
