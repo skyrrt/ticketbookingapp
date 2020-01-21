@@ -1,6 +1,7 @@
 package com.github.skyrrt.ticketbooker.booking.domain.dto;
 
 import com.github.skyrrt.ticketbooker.ticket.domain.dto.TicketDto;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@Builder
 public class CreateBookingDto {
     private int screeningId;
     @Pattern(regexp = "(^[A-Z][a-z]{2,}$)", message = "Invalid name")
